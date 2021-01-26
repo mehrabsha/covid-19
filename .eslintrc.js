@@ -7,7 +7,14 @@ module.exports = {
   parserOptions: {
     parser: "babel-eslint"
   },
-  rules: {
+  rules: {'prettier/prettier': [
+    'warn',
+    {
+      singleQuote: true,
+      semi: false,
+      trailingComma: 'all'
+    }
+  ],
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "warn" : "off"
   }

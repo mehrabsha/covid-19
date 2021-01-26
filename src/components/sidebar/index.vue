@@ -1,3 +1,3 @@
 <template>
-  <h1>Overview</h1>
+  <p>sidebar</p>
 </template>
