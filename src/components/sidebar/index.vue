@@ -1,6 +1,12 @@
 <template>
-  <div class="sidebar">
-    <Logo />
+  <div :class="['sidebar', isOpen ? 'is-open' : '']">
+    <div
+      class="open-list text-center d-block d-sm-none pt-3"
+      @click="isOpen = !isOpen"
+    >
+      <font-awesome-icon :icon="isOpen ? 'times' : 'bars'" />
+    </div>
+    <Logo :isOpen="isOpen" />
     <ul>
       <router-link
         v-for="(item, index) in sidebarItems"
@@ -14,8 +20,8 @@
           v-else
           :class="['py-3 pl-4', $route.name == item.route ? 'active' : '']"
         >
-          <font-awesome-icon :icon="item.icon" class="mr-4" /><span
-            class="pr-5 mr-4 d-none d-md-inline"
+          <font-awesome-icon :icon="item.icon" /><span
+            :class="[isOpen ? 'd-inline' : 'd-none d-lg-inline', 'ml-4 pr-5']"
             >{{ item.title }}</span
           >
         </li>
@@ -74,18 +80,32 @@ export default {
           icon: 'award',
         },
       ],
+      isOpen: false,
     }
   },
   components: {
     Logo,
+  },
+  watch: {
+    $route() {
+      this.isOpen = false
+    },
   },
 }
 </script>
 
 <style lang="scss">
 .sidebar {
+  &.is-open {
+    width: 100vw;
+  }
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: 0.3s;
+  font-size: 1rem;
   background-color: #363740;
-  width: fit-content;
   height: 100vh;
   hr {
     background-color: #9fa2b4;
@@ -97,18 +117,24 @@ export default {
       background-color: rgba($color: #9fa2b4, $alpha: 0.08);
       border-left: 4px solid rgba($color: #dde2ff, $alpha: 1);
       border-radius: 2px 0px 0px 2px;
-      color: #dde2ff !important;
+
       svg {
         color: #dde2ff;
       }
     }
     li {
       border-left: 4px solid rgba($color: #dde2ff, $alpha: 0);
+      border-right: 4px solid rgba($color: #dde2ff, $alpha: 0);
       transition: 0.2s;
+      padding-right: 20px !important;
       cursor: pointer;
       svg {
         color: #9fa2b4;
+        text-align: center;
         width: 20px !important;
+      }
+      span {
+        color: #dde2ff !important;
       }
     }
   }
