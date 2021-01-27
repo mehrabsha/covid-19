@@ -15,16 +15,17 @@ export default {
   },
   methods: {
     setContentSize() {
-      console.log(document.querySelector('.content').style.marginLeft)
-      document.querySelector('.content').style.marginLeft =
-        document.querySelector('.sidebar').clientWidth + 7 + 'px'
-      try {
-        document.querySelector('.chartjs-render-monitor ').style.width =
-          document.querySelector('.chartjs-render-monitor').offsetWidth -
-          document.querySelector('.sidebar').clientWidth +
-          'px'
-      } catch (error) {
-        return
+      if (document.querySelector('.sidebar').clientWidth < 400) {
+        document.querySelector('.content').style.marginLeft =
+          document.querySelector('.sidebar').clientWidth + 7 + 'px'
+        try {
+          document.querySelector('.chartjs-render-monitor ').style.width =
+            document.querySelector('.chartjs-render-monitor').offsetWidth -
+            document.querySelector('.sidebar').clientWidth +
+            'px'
+        } catch (error) {
+          return
+        }
       }
     },
   },
