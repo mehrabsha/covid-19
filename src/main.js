@@ -3,6 +3,7 @@ import 'mutationobserver-shim'
 import Vue from 'vue'
 import './plugins/bootstrap-vue'
 import './plugins/fortawesome'
+import './plugins/axios'
 import App from './App.vue'
 import router from './router'
 

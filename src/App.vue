@@ -18,6 +18,14 @@ export default {
       console.log(document.querySelector('.content').style.marginLeft)
       document.querySelector('.content').style.marginLeft =
         document.querySelector('.sidebar').clientWidth + 'px'
+      try {
+        document.querySelector('.chartjs-render-monitor ').style.width =
+          document.querySelector('.chartjs-render-monitor').offsetWidth -
+          document.querySelector('.sidebar').clientWidth +
+          'px'
+      } catch (error) {
+        return
+      }
     },
   },
   watch: {

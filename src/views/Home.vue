@@ -1,8 +1,8 @@
 <template>
   <div>
     <navbar title="Covid 19 Tracker - Sokan Edition" />
-    <b-row class="count-cards mt-5">
-      <b-col>
+    <b-row class="count-cards mt-3 mt-sm-5">
+      <b-col cols="12" sm="6" md="3">
         <b-card class="mb-2 count-card">
           <span class="title">Total</span>
           <span class="count">
@@ -11,7 +11,7 @@
         </b-card>
       </b-col>
 
-      <b-col>
+      <b-col cols="12" sm="6" md="3">
         <b-card class="mb-2 count-card active">
           <span class="title">Active</span>
           <span class="count">
@@ -20,7 +20,7 @@
         </b-card>
       </b-col>
 
-      <b-col>
+      <b-col cols="12" sm="6" md="3">
         <b-card class="mb-2 count-card">
           <span class="title">Recovered</span>
           <span class="count">
@@ -29,7 +29,7 @@
         </b-card>
       </b-col>
 
-      <b-col>
+      <b-col cols="12" sm="6" md="3">
         <b-card class="mb-2 count-card">
           <span class="title">Death</span>
           <span class="count">
@@ -38,21 +38,54 @@
         </b-card>
       </b-col>
     </b-row>
+    <b-card class="mt-2 mt-sm-4">
+      <chart :width="200" v-if="loaded" :data="chartData" />
+    </b-card>
   </div>
 </template>
 
 <script>
 import navbar from '@/components/navbar'
+import chart from '@/components/overview/chart/chart.js'
 export default {
-  components: { navbar },
+  data() {
+    return {
+      loaded: false,
+      chartData: {},
+    }
+  },
+  components: { navbar, chart },
+  mounted() {
+    var date = new Date()
+    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+    var monthLen = new Date(date.getFullYear(), date.getMonth(), 0).getDate()
+    this.chartData.range = Array.from(new Array(monthLen), (x, i) => i + 1)
+
+    console.log(this.chartData.range)
+    var lastDay = new Date(date.getFullYear(), date.getMonth(), monthLen)
+    console.log(firstDay)
+    console.log(lastDay)
+    this.axios
+      .get(
+        'https://api.covid19api.com/live/country/iran/status/confirmed/date/' +
+          firstDay.toISOString()
+      )
+      .then((response) => {
+        this.chartData.Total = response.data.map((val) => val.Confirmed)
+        this.chartData.Recovered = response.data.map((val) => val.Recovered)
+        this.loaded = true
+      })
+  },
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.card {
+  border-radius: 0.5rem !important;
+}
 .count-cards {
   .count-card.active,
   .count-card:hover {
-    transition: 0.2s;
     border: 2px solid #3751ff !important;
     color: #3751ff !important;
     .title {

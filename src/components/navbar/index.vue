@@ -2,7 +2,7 @@
   <div class="navbar p-0">
     <h5 class="title ">{{ title }}</h5>
     <div class="user">
-      <div class="icons">
+      <div class="icons d-none d-sm-inline">
         <font-awesome-icon icon="bell" />
         <font-awesome-icon class="ml-4" icon="search" />
       </div>
