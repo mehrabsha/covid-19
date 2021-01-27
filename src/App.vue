@@ -17,7 +17,7 @@ export default {
     setContentSize() {
       console.log(document.querySelector('.content').style.marginLeft)
       document.querySelector('.content').style.marginLeft =
-        document.querySelector('.sidebar').clientWidth + 'px'
+        document.querySelector('.sidebar').clientWidth + 7 + 'px'
       try {
         document.querySelector('.chartjs-render-monitor ').style.width =
           document.querySelector('.chartjs-render-monitor').offsetWidth -
@@ -42,10 +42,14 @@ html,
 body {
   font-family: Mulish !important;
   font-size: 16px !important;
-  overflow-x: hidden;
   background-color: #f7f8fc;
 }
 .app {
   flex-wrap: nowrap;
+}
+@media only screen and (min-width: 620px) {
+  body {
+    overflow-x: hidden;
+  }
 }
 </style>

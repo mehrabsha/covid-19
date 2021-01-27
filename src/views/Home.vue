@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar title="Covid 19 Tracker - Sokan Edition" />
-    <b-row class="count-cards mt-3 mt-sm-5">
+    <b-row class="count-cards mt-3 mt-sm-4">
       <b-col cols="12" sm="6" md="3">
         <b-card class="mb-2 count-card">
           <span class="title">Total</span>
@@ -46,7 +46,7 @@
 
 <script>
 import navbar from '@/components/navbar'
-import chart from '@/components/overview/chart/chart.js'
+import chart from '@/components/overview/chart.js'
 export default {
   data() {
     return {
@@ -79,7 +79,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .card {
   border-radius: 0.5rem !important;
 }
